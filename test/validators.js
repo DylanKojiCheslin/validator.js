@@ -260,6 +260,18 @@ describe('Validators', () => {
     });
   });
 
+  it('should validate anyURI', () => {
+    test({
+      validator: 'isAnyURI',
+      args: [{ allow_empty: true }],
+      valid: [
+        '',
+      ],
+      invalid: [
+      ],
+    });
+  });
+
   it('should validate URLs', () => {
     test({
       validator: 'isURL',

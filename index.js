@@ -23,6 +23,8 @@ var _isEmail = _interopRequireDefault(require("./lib/isEmail"));
 
 var _isURL = _interopRequireDefault(require("./lib/isURL"));
 
+var _isAnyURI = _interopRequireDefault(require("./lib/isAnyURI"));
+
 var _isMACAddress = _interopRequireDefault(require("./lib/isMACAddress"));
 
 var _isIP = _interopRequireDefault(require("./lib/isIP"));
@@ -167,6 +169,7 @@ var validator = {
   matches: _matches.default,
   isEmail: _isEmail.default,
   isURL: _isURL.default,
+  isAnyURI: _isAnyURI.default,
   isMACAddress: _isMACAddress.default,
   isIP: _isIP.default,
   isIPRange: _isIPRange.default,

@@ -716,6 +716,21 @@ function isURL(url, options) {
   return true;
 }
 
+var anyURIRegex = function anyURIRegex(options) {
+  var allow_empty_strings = options.allow_empty ? '^$|' : '';
+  var pattern = allow_empty_strings;
+  return new RegExp("(".concat(pattern, ")"));
+};
+
+var default_AnyURI_options = {
+  allow_empty: true
+};
+function isAnyURI(str, options) {
+  assertString(str);
+  options = merge(options, default_AnyURI_options);
+  return anyURIRegex(options).test(str);
+}
+
 var macAddress = /^([0-9a-fA-F][0-9a-fA-F]:){5}([0-9a-fA-F][0-9a-fA-F])$/;
 var macAddressNoColons = /^([0-9a-fA-F]){12}$/;
 function isMACAddress(str, options) {
@@ -2021,6 +2036,7 @@ var validator = {
   matches: matches,
   isEmail: isEmail,
   isURL: isURL,
+  isAnyURI: isAnyURI,
   isMACAddress: isMACAddress,
   isIP: isIP,
   isIPRange: isIPRange,
