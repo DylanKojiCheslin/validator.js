@@ -717,17 +717,32 @@ function isURL(url, options) {
 }
 
 var anyURIRegex = function anyURIRegex(options) {
-  var allow_empty_strings = options.allow_empty ? '^$|' : '';
-  var pattern = allow_empty_strings;
+  // the or operator can allow cases that should not be in every case '^$|'
+  var allow_empty = options.no_empty_strings ? '' : '^$|';
+  var pattern = '';
+  pattern.concat(allow_empty);
+  console.log('pattern');
+  console.log(pattern);
   return new RegExp("(".concat(pattern, ")"));
 };
 
 var default_AnyURI_options = {
-  allow_empty: true
+  no_empty_strings: false,
+  no_unencoded_spaces: true
 };
 function isAnyURI(str, options) {
   assertString(str);
   options = merge(options, default_AnyURI_options);
+
+  if (options.no_unencoded_spaces) {
+    var find_unencoded_spaces_regex = '\ +';
+    var there_are_unencoded_spaces = new RegExp(find_unencoded_spaces_regex).test(str);
+
+    if (there_are_unencoded_spaces) {
+      return false;
+    }
+  }
+
   return anyURIRegex(options).test(str);
 }
 

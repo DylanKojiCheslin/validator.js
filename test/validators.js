@@ -263,14 +263,37 @@ describe('Validators', () => {
   it('should validate anyURI', () => {
     test({
       validator: 'isAnyURI',
-      args: [{ allow_empty: true }],
+      args: [],
       valid: [
         '',
+        'http://datypic.com',
+        'mailto:info@datypic.com',
+        '../édition.html',
+        'http://datypic.com/prod.html#shirt',
+        '../prod.html#shirt',
+        'urn:example:org',
       ],
       invalid: [
+        'mailto:info@dat ypic.com',
+        // 'http://datypic.com#f% rag',
+        // 'http://datypic.com#frag1#frag2',
+        'aaaaaaaaaaaaaaaa',
       ],
     });
   });
+
+  it('should not validate anyURI with empty an string', () => {
+    test({
+      validator: 'isAnyURI',
+      args: [{ allow_empty_strings: false }],
+      valid: [
+      ],
+      invalid: [
+        '',
+      ],
+    });
+  });
+
 
   it('should validate URLs', () => {
     test({
